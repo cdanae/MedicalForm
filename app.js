@@ -1,3 +1,5 @@
+import daysjs from 'dayjs';
+
 const consultForm = document.getElementById('consultForm');
 
 const patientData = {};
