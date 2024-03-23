@@ -1,5 +1,17 @@
 import dayjs from "https://cdn.skypack.dev/dayjs";
 
+/* CONSUMO DE API */
+
+const getDiagnosis = async () => {
+  const res = await fetch('https://api.editandoideas.com/technical-test/cat__cie_sis/')
+    .then(response => response.json())
+    .catch(err => console.log('Solicitud fallida', err));
+  return res
+}
+
+
+/* DATOS DEL FORM */
+
 const consultForm = document.getElementById('consultForm');
 
 const patientData = {};
@@ -44,41 +56,47 @@ const calculateAge = (dateBirth) => {
     years, months, days, hours
   }
 
-
   return age
 }
 const agePatient = (dateBirth) => {
-  if(dateBirth) {
+  if (dateBirth) {
     const age = calculateAge(dateBirth);
     return age;
   } else {
     return 'NO'
   }
 }
-const filterDiagnosis = () => {
+
+/* FILTRADO */
+
+const filterDiagnosis = (gender) => {
+  getDiagnosis()
+    .then(data => {
+      const filteredGender = data.filter(element => element.lsex === gender)
+      const agePatient = calculateAge(patientData.dateBirth)
+      
+      
+      /* const filteredAge = filteredGender.filter(element => element.linf >= "028D" && element.lsup <= "120A") */
+      console.log('filteredAge', filteredGender)
+    })
+  
+  // si edad es true
+  // filtrar por edad de acuerdo al rango de linf y lsup
+  // si edad es false
+  // filtrar por linf === 'NO' && lsup === 'NO'
   console.log(agePatient(patientData.dateBirth));
 }
 
 
-
+/* SUBMIT */
 const handleSubmit = (e) => {
   e.preventDefault();
   collectFormData();
   showDiagnosisForm();
-  filterDiagnosis();
+  filterDiagnosis(patientData.gender);
 }
 
 
 
 consultForm.addEventListener('submit', handleSubmit)
 
-
-
-/* const getDiagnosis = async() => {
-  const res =  await fetch('http://localhost:3000/:id')
-  .then(response => response.json())
-
-console.log( res, 'holis');
-  return res
-}
-getDx() */
