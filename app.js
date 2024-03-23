@@ -55,32 +55,24 @@ const calculateAge = (dateBirth) => {
 
   return age
 }
-/* const agePatient = (dateBirth) => {
-  if (dateBirth) {
-    const age = calculateAge(dateBirth);
-    return age;
-  } else {
-    return 'NO'
-  }
-} */
 
 /* FILTRADO */
 
-const filterDiagnosis = (gender) => {
+const filterDiagnosis = () => {
   let finalFilter = [];
   const { dateBirth } = patientData
+  const { gender } = patientData
 
+  //type, category,age
 
-  //tipo, categoria,age
+  function getFilterByDate(type, category, age, data) {
 
-  function getFilterByDate(tipo, categoria, age, data) {
-
-    const test = data.filter(element => element.lsup[3] === categoria)
+    const test = data.filter(element => element.lsup[3] === category)
 
     finalFilter = test.filter(e => {
       const max = parseInt(e.lsup.slice(0, 3))
       const min = parseInt(e.linf.slice(0, 3))
-      if (age[tipo] <= max && age[tipo] >= min) {
+      if (age[type] <= max && age[type] >= min) {
         return true
       }
     })
@@ -89,7 +81,7 @@ const filterDiagnosis = (gender) => {
 
   }
 
-  function getFilterByGender(gender, data){
+  function getFilterByGender(gender, data) {
     if (gender !== 'NO') {
       const filteredGender = data.filter(element => element.lsex === gender)
       if (filteredGender.length >= 1) {
@@ -109,11 +101,11 @@ const filterDiagnosis = (gender) => {
           const filterByDate = getFilterByDate("diffYears", "A", age, data)
           const filterByDateAndGender = getFilterByGender(gender, filterByDate)
           finalFilter = filterByDateAndGender
-        } else if(age.diffMonths >=1){
+        } else if (age.diffMonths >= 1) {
           const filterByDate = getFilterByDate("diffMonths", "M", age, data)
           const filterByDateAndGender = getFilterByGender(gender, filterByDate)
           finalFilter = filterByDateAndGender
-        } else if(age.diffDays >=1){
+        } else if (age.diffDays >= 1) {
           const filterByDate = getFilterByDate("diffDays", "D", age, data)
           const filterByDateAndGender = getFilterByGender(gender, filterByDate)
           finalFilter = filterByDateAndGender
@@ -123,8 +115,13 @@ const filterDiagnosis = (gender) => {
           finalFilter = filterByDateAndGender
         }
 
-        console.log('FINAL', finalFilter);
-      } 
+      } else if (gender !== 'NO') {
+        const filteredGender = data.filter(element => element.lsex === gender)
+        finalFilter = filteredGender; 
+      } else {
+        finalFilter = data
+      }
+      console.log('FINAL', finalFilter);
 
     })
 }
@@ -135,7 +132,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
   collectFormData();
   showDiagnosisForm();
-  filterDiagnosis(patientData.gender);
+  filterDiagnosis();
 }
 
 
