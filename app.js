@@ -57,7 +57,31 @@ const calculateAge = (dateBirth) => {
 }
 
 /* FILTRADO */
+function getFilterByDate(type, category, age, data) {
 
+  const filtered = data.filter(element => element.lsup[3] === category)
+
+  const finalFilter = filtered.filter(e => {
+    const max = parseInt(e.lsup.slice(0, 3))
+    const min = parseInt(e.linf.slice(0, 3))
+    if (age[type] <= max && age[type] >= min) {
+      return true
+    }
+  })
+
+  return finalFilter
+
+}
+
+function getFilterByGender(gender, data) {
+  if (gender !== 'NO') {
+    const filteredGender = data.filter(element => element.lsex === gender)
+    if (filteredGender.length >= 1) {
+      data = filteredGender
+    }
+  }
+  return data
+}
 const filterDiagnosis = () => {
   let finalFilter = [];
   const { dateBirth } = patientData
@@ -65,37 +89,10 @@ const filterDiagnosis = () => {
 
   //type, category,age
 
-  function getFilterByDate(type, category, age, data) {
-
-    const test = data.filter(element => element.lsup[3] === category)
-
-    finalFilter = test.filter(e => {
-      const max = parseInt(e.lsup.slice(0, 3))
-      const min = parseInt(e.linf.slice(0, 3))
-      if (age[type] <= max && age[type] >= min) {
-        return true
-      }
-    })
-
-    return finalFilter
-
-  }
-
-  function getFilterByGender(gender, data) {
-    if (gender !== 'NO') {
-      const filteredGender = data.filter(element => element.lsex === gender)
-      if (filteredGender.length >= 1) {
-        data = filteredGender
-      }
-    }
-    return data
-  }
-
   getDiagnosis()
     .then(data => {
       if (dateBirth) {
         const age = calculateAge(dateBirth);
-        let finalFilter = []
 
         if (age.diffYears >= 1) {
           const filterByDate = getFilterByDate("diffYears", "A", age, data)
