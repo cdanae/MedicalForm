@@ -28,15 +28,7 @@ const showDiagnosisForm = () => {
   `
   consultForm.insertAdjacentHTML('afterend', diagnosisForm);
 }
-
-const filterDiagnosis = (gender, dateBirth) => {
-  console.log('sexo:', gender);
-  console.log('nacimiento:', dateBirth);
-  agePatient(dateBirth);
-  console.log(agePatient(dateBirth));
-}
-
-const agePatient = (dateBirth) => {
+const calculateAge = (dateBirth) => {
   const actualDate = dayjs();
   const dateBirthFormat = dayjs(dateBirth);
   const diffMonths = actualDate.diff(dateBirthFormat, 'month');
@@ -55,12 +47,25 @@ const agePatient = (dateBirth) => {
 
   return age
 }
+const agePatient = (dateBirth) => {
+  if(dateBirth) {
+    const age = calculateAge(dateBirth);
+    return age;
+  } else {
+    return 'NO'
+  }
+}
+const filterDiagnosis = () => {
+  console.log(agePatient(patientData.dateBirth));
+}
+
+
 
 const handleSubmit = (e) => {
   e.preventDefault();
   collectFormData();
   showDiagnosisForm();
-  filterDiagnosis(patientData.gender, patientData.dateBirth)
+  filterDiagnosis();
 }
 
 
