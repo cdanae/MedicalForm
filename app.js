@@ -1,4 +1,4 @@
-import daysjs from 'dayjs';
+import dayjs from "https://cdn.skypack.dev/dayjs";
 
 const consultForm = document.getElementById('consultForm');
 
@@ -32,7 +32,28 @@ const showDiagnosisForm = () => {
 const filterDiagnosis = (gender, dateBirth) => {
   console.log('sexo:', gender);
   console.log('nacimiento:', dateBirth);
+  agePatient(dateBirth);
+  console.log(agePatient(dateBirth));
+}
 
+const agePatient = (dateBirth) => {
+  const actualDate = dayjs();
+  const dateBirthFormat = dayjs(dateBirth);
+  const diffMonths = actualDate.diff(dateBirthFormat, 'month');
+  const diffDays = actualDate.diff(dateBirthFormat, 'day');
+  const diffHours = actualDate.diff(dateBirthFormat, 'hour');
+
+  const years = Math.floor(diffMonths / 12);
+  const months = diffMonths % 12;
+  const days = diffDays % 30;
+  const hours = diffHours % 24;
+
+  const age = {
+    years, months, days, hours
+  }
+
+
+  return age
 }
 
 const handleSubmit = (e) => {
