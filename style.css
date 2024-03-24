@@ -48,6 +48,13 @@ input, select, textarea {
   align-items: center;
   margin-bottom: 15px;
 }
+.input-name {
+  width: 75%;
+}
+textarea {
+  margin: 0;
+  width: 95%;
+}
 
 /* Botones */
 button {
@@ -70,32 +77,15 @@ button[type="submit"] {
   margin-top: 20px;
 }
 
-/* Estilos para el datalist personalizado */
-.custom-datalist {
-  position: relative;
+
+.input-diagnosis {
+  width: 90%;
 }
 
-.custom-datalist::after {
-  content: "\25BC";
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
 
-.custom-datalist select {
-  position: absolute;
-  width: 100%;
-  top: 100%;
-  left: 0;
-  opacity: 0;
-  cursor: pointer;
-}
 
-/* Media query */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   main {
     width: 90%;
   }
-}
+} */

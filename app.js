@@ -33,9 +33,9 @@ const showDiagnosisForm = (options) => {
   <hr>
   <form id="diagnosisForm">
     <h2>Diagnósticos Aplicables</h2>
-    <div class="custom-datalist">
+    <div class="container-datalist">
       <label for="diagnosis1">Diagnóstico 1:</label>
-      <input type="text" id="diagnosis1" name="diagnosis1" list="diagnosisOptions" required>
+      <input type="text" id="diagnosis1" name="diagnosis1" list="diagnosisOptions" class="input-diagnosis" required>
       <datalist id="diagnosisOptions">
         ${options.map(option => `<option value="${option}">`).join('')}
       </datalist>
