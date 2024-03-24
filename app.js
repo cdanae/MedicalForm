@@ -1,5 +1,7 @@
 import dayjs from "https://cdn.skypack.dev/dayjs";
 
+
+
 /* CONSUMO DE API */
 
 const getDiagnosis = async () => {
@@ -26,18 +28,23 @@ const collectFormData = () => {
   }
 }
 
-const showDiagnosisForm = () => {
+const showDiagnosisForm = (options) => {
   const diagnosisForm = `
   <hr>
   <form id="diagnosisForm">
     <h2>Diagnósticos Aplicables</h2>
     <div>
       <label for="diagnosis1">Diagnóstico 1:</label>
-      <input type="text" id="diagnosis1" name="diagnosis1" required>
+      <input type="text" id="diagnosis1" name="diagnosis1" list="diagnosisOptions" required>
+      <datalist id="diagnosisOptions">
+        ${options.map(option => `<option value="${option}">`).join('')}
+      </datalist>
+    </div>
     </div>
     <button type="submit">Imprimir</button>
   </form>
-  `
+  `;
+
   consultForm.insertAdjacentHTML('afterend', diagnosisForm);
 }
 const calculateAge = (dateBirth) => {
@@ -82,14 +89,14 @@ function getFilterByGender(gender, data) {
   }
   return data
 }
-const filterDiagnosis = () => {
+const filterDiagnosis = async () => {
   let finalFilter = [];
   const { dateBirth } = patientData
   const { gender } = patientData
 
   //type, category,age
 
-  getDiagnosis()
+  const request = getDiagnosis()
     .then(data => {
       if (dateBirth) {
         const age = calculateAge(dateBirth);
@@ -114,25 +121,30 @@ const filterDiagnosis = () => {
 
       } else if (gender !== 'NO') {
         const filteredGender = data.filter(element => element.lsex === gender)
-        finalFilter = filteredGender; 
+        finalFilter = filteredGender;
       } else {
         finalFilter = data
       }
-      console.log('FINAL', finalFilter);
 
+      return finalFilter
     })
+
+
+
+
+  return request
 }
 
 
 /* SUBMIT */
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   collectFormData();
-  showDiagnosisForm();
-  filterDiagnosis();
+  const filterData = await filterDiagnosis();
+  const options = filterData.map(name => name.nombre)
+  showDiagnosisForm(options);
 }
 
 
 
 consultForm.addEventListener('submit', handleSubmit)
-
