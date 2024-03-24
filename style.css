@@ -24,6 +24,10 @@ h1 {
   margin: 0;
 }
 
+p {
+  font-size: 14px;
+}
+
 h2 {
   margin-top: 20px;
   color: #88949E;

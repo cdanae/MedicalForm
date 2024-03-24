@@ -40,7 +40,6 @@ const showDiagnosisForm = (options) => {
         ${options.map(option => `<option value="${option}">`).join('')}
       </datalist>
     </div>
-    </div>
     <button type="submit">Imprimir</button>
   </form>
   `;
@@ -137,14 +136,23 @@ const filterDiagnosis = async () => {
 
 
 /* SUBMIT */
+
+const handlePrint = (e) => {
+  e.preventDefault()
+  window.print()
+}
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   collectFormData();
   const filterData = await filterDiagnosis();
   const options = filterData.map(name => name.nombre)
   showDiagnosisForm(options);
+  const diagnosisForm = document.getElementById('diagnosisForm');
+  diagnosisForm.addEventListener('submit', handlePrint)
 }
 
 
 
 consultForm.addEventListener('submit', handleSubmit)
+
