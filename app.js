@@ -33,7 +33,7 @@ const showDiagnosisForm = (options) => {
   <hr>
   <form id="diagnosisForm">
     <h2>Diagnósticos Aplicables</h2>
-    <div>
+    <div class="custom-datalist">
       <label for="diagnosis1">Diagnóstico 1:</label>
       <input type="text" id="diagnosis1" name="diagnosis1" list="diagnosisOptions" required>
       <datalist id="diagnosisOptions">

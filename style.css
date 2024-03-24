@@ -1,10 +1,101 @@
-/* .options ul {
-    border-top: 1px solid black;
-    padding: 15px 10px;
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
-.options ul li {
-    list-style: none;
-    border-radius: 3px;
-    padding: 15px 10px;
-    cursor: pointer;
-} */
+
+body {
+  background: linear-gradient(0deg, rgba(21, 174, 152, 1) 0%, rgba(65, 152, 247, 1) 100%);
+}
+
+main {
+  width: 80%;
+  margin: 30px auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  color: #263446;
+  font-size: 30px;
+  margin: 0;
+}
+
+h2 {
+  margin-top: 20px;
+  color: #88949E;
+  font-size: 20px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+}
+input, select, textarea {
+  padding: 10px;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.container-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Botones */
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button[type="submit"] {
+  margin-top: 20px;
+}
+
+/* Estilos para el datalist personalizado */
+.custom-datalist {
+  position: relative;
+}
+
+.custom-datalist::after {
+  content: "\25BC";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.custom-datalist select {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Media query */
+@media (max-width: 600px) {
+  main {
+    width: 90%;
+  }
+}
