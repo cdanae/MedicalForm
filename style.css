@@ -82,3 +82,12 @@ button[type="submit"] {
   margin-top: 20px;
 }
 
+@media print {
+  input, textarea, select {
+    border: none;
+    appearance:none;
+  }
+  button {
+    display: none;
+  }
+}
